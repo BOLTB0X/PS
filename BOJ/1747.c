@@ -29,6 +29,7 @@ int is_Pallin(char* str)
 
     for (int i = 0; i < len; ++i)
     {
+        // 체크
         if (str[i] != str[len - 1 - i])
         {
             return 0;
