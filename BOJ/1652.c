@@ -1,73 +1,61 @@
+// 1652 누울 자리를 찾아라
 #include <stdio.h>
+#include <string.h>
 
-char board[110][110];
+char board[101][101];
 
-int main(void)
+int main(void) 
 {
-    int n;
-    int row = 0, col = 0, cnt = 0;
+    int n, ans1 = 0, ans2 = 0, cnt = 0;
 
     scanf("%d", &n);
 
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         scanf("%s", board[i]);
     }
 
     // 가로
-    for (int i = 0; i < n; ++i)
-    {
-        cnt = 0;
-        for (int j = 0; j < n; ++j)
-        {
-            if (board[i][j] == '.')
-            {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (board[i][j] == '.') {
                 cnt++;
             }
 
-            // 카운트 조건이 벽에 닿아야함
-            else
-            {
-                // 누울 자리이면
-                if (cnt >= 2)
-                {
-                    row++;
-                }
-                cnt = 0; 
-            }
-        }
-        if (cnt >= 2)
-        {
-            row++;
-        }
-    }
-
-    // 세로
-    for (int i = 0; i < n; ++i)
-    {
-        cnt = 0;
-        for (int j = 0; j < n; ++j)
-        {
-            if (board[j][i] == '.')
-            {
-                cnt++;
-            }
-
-            else
-            {
-                if (cnt >= 2)
-                {
-                    col++;
+            else {
+                if (cnt >= 2) {
+                    ans1++;
                 }
                 cnt = 0;
             }
         }
-        if (cnt >= 2)
-        {
-            col++;
+
+        if (cnt >= 2) {
+            ans1++;
         }
+        cnt = 0;
     }
 
-    printf("%d %d", row, col);
+    // 세로
+    cnt = 0;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (board[j][i] == '.') {
+                cnt++;
+            }
+
+            else {
+                if (cnt >= 2) {
+                    ans2++;
+                }
+                cnt = 0;
+            }
+        }
+
+        if (cnt >= 2) {
+            ans2++;
+        }
+        cnt = 0;
+    }
+    printf("%d %d", ans1, ans2);
     return 0;
 }

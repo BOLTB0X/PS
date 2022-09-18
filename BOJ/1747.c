@@ -1,3 +1,4 @@
+// 1747 소수&팰린드롬
 #include <stdio.h>
 #include <string.h>
 #define Max_Len 1500001
@@ -50,10 +51,10 @@ int main(void)
     for (int i = n; i < Max_Len; ++i)
     {
         sprintf(str, "%d", i); // 문자열 변환
-        if (!prime[i]&& is_Pallin(str))
+        if (prime[i] == 0 && is_Pallin(str))
         {
-            printf("%d", i);
-            break;
+            printf("%d", i); 
+            break; // 가장 작은 수 
         }
     }
     return 0;
