@@ -1,44 +1,41 @@
+// 2816 디지털 티비
 #include <stdio.h>
 #include <string.h>
 
-int main(void)
-{
-    int n, k1, k2;
-    char str[101][11] = {'\0', };
+int main(void) {
+    int n, k_idx1, k_idx2;
+    char board[101][11];
 
     scanf("%d", &n);
     for (int i = 0; i < n; ++i) {
-        scanf("%s", str[i]);
+        scanf("%s", board[i]);
 
-        if (strcmp(str[i], "KBS1") == 0) {
-            k1 = i;
+        if (strcmp(board[i], "KBS1") == 0) {
+            k_idx1 = i;
         }
 
-        else if (strcmp(str[i], "KBS2") == 0) {
-            k2 = i;
+        else if (strcmp(board[i], "KBS2") == 0) {
+            k_idx2 = i;
         }
     }
 
-    int idx = k1;
-    for (int i = 0; i < idx; ++i) {
+    for (int i = 0; i < k_idx1; ++i) {
         printf("1");
     }
-
-    for (int i = 0; i < idx; ++i) {
+    
+    for (int i = 0; i < k_idx1; ++i) {
         printf("4");
     }
 
-    if (k1 > k2) {
-        k2++;
-    }
-
-    idx = k2 ;
-    for (int i = 0; i < idx; ++i) {
+    if (k_idx1 > k_idx2)
+        k_idx2++;
+        for (int i = 0; i < k_idx2; ++i) {
         printf("1");
     }
-
-    for (int i = 0; i < idx - 1; ++i) {
+    
+    for (int i = 0; i < k_idx2 - 1; ++i) {
         printf("4");
     }
+
     return 0;
 }
