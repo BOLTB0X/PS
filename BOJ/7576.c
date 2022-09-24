@@ -13,6 +13,7 @@ int board[Max][Max];
 const int dx[4] = {-1, 0, 1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
+// 범위
 int check(int n, int m, int y, int x) {
     return 0 <= y && 0 <= x && y < n && x < m;
 }
@@ -35,6 +36,8 @@ void BFS(int n, int m) {
             }
         }
     }
+
+    return;
 }
 
 int main(void)
