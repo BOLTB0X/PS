@@ -15,41 +15,31 @@ int main(void) {
     while (n--) {
         cin >> val;
 
-        if (st.empty()) {
-            for (int i = 0; i < val; ++i) {
-                st.push(number++);
-                ans += "+";
-            }
-        }
-
-        else {
-            if (number < val) {
-                for (int i = 0; i < val - number; ++i) {
-                    st.push(number++);
-                    ans += "+";
-                }
-           }
+        while (number <= val)
+        {   
+            ans += "+";
+            st.push(number++);
         }
 
         if (st.top() == val) {
-            st.pop();
-            ans += '-';
+            ans += "-";
+            st.pop(); 
         }
 
         else {
             flag = 0;
+            break;
         }
     }
-    
+
     if (flag == 0) {
         cout << "NO";
     }
+
     else {
-        for (char a: ans)
+        for (char a : ans)
             cout << a << '\n';
     }
-    for (char a: ans)
-        cout << a << '\n';
-
+    
     return 0;
 }
