@@ -10,14 +10,6 @@ int alp_occ[26] = {0, };
 const int dy[4] = {-1, 1, 0, 0};
 const int dx[4] = {0, 0, -1, 1};
 
-int all_visit(void) {
-    for (int i = 0; i < 26; ++i) {
-        if (alp_occ[i] == 1)
-            return 0;
-    }
-    return 1;
-}
-
 void DFS(int R, int C, int cy, int cx, int level) {
     res = res < level ? level : res;
 
