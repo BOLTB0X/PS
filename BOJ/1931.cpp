@@ -18,6 +18,7 @@ int solution(int n, vector<pair<int,int>> v) {
     int standard = v[0].second;
 
     for (int i = 1; i < v.size(); ++i) {
+        // 시작 시간과 끝나는 시간 비교
         if (standard <= v[i].first) {
             answer++;
             standard = v[i].second;
