@@ -15,12 +15,9 @@ int max(int a, int b) {
 
 int solution(void) {
     int answer = 0;
-
     for (int i = 0; i < n; ++i) {
         for (int j = bags[i].first; j <= w; ++j) {
-            if (j - bags[i].first >= 0) {
-                dp[j] = max(dp[j], dp[j - bags[i].first] + bags[i].second);
-            }
+            dp[j] = max(dp[j], dp[j - bags[i].first] + bags[i].second);
         }
     }
     answer = dp[w];
