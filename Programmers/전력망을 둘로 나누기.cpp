@@ -40,6 +40,7 @@ int solution(int n, vector<vector<int>> wires) {
     }
     
     for (auto& w : wires) {
+        // 연결 해제
         board[w[0]][w[1]] = 0;
         board[w[1]][w[0]] = 0;
         memset(visited, 0, sizeof(visited));
@@ -50,6 +51,7 @@ int solution(int n, vector<vector<int>> wires) {
         DFS(n, w[1], cnt2);
         answer = min(answer, abs(cnt1 - cnt2));
         
+        // 연결
         board[w[0]][w[1]] = 1;
         board[w[1]][w[0]] = 1;
     }
