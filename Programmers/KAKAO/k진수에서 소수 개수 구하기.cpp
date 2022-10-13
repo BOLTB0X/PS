@@ -11,8 +11,8 @@ bool is_prime(LL number) {
     if (number == 0 || number == 1)
         return false;
     
-    for (int i = 2; i <= (int)sqrt(number); ++i) {
-        if (number % i == 0)
+    for (LL i = 2; i <= (LL)sqrt(number); ++i) {
+        if (number % i == 0) 
             return false;
     }
     
@@ -26,33 +26,34 @@ string trans_number(int n, int k) {
         ret += to_string(n % k);
         n /= k;
     }
-    
-    return string(ret.rbegin(), ret.rend());
+
+    return string(ret.rbegin(), ret.rend());;
 }
 
 int solution(int n, int k) {
     int answer = 0;
     
     string t_n = trans_number(n, k);
-    string candi = "";
+    LL size = t_n.length();
+    string prime = "";
     
-    for (LL i = 0; i < t_n.size(); ++i) {
-        if (t_n[i] == '0'&& candi.length() != 0) {
-            if (is_prime(stoll(candi)))
+    for (LL i = 0; i < size; ++i) {
+        // 소수 체크
+        if (t_n[i] == '0' && prime.length() > 0) {
+            if (is_prime(stoll(prime)))
                 answer++;
-            candi = "";
+            prime = "";
         }
         
         else {
-            candi += t_n[i];
+            prime += t_n[i];
         }
     }
     
-    if (candi.size() != 0) {
-        if (is_prime(stoll(candi)))
+    if (prime.length() > 0) {
+        if (is_prime(stoll(prime)))
             answer++;
-        candi = "";
     }
-
+    
     return answer;
 }
