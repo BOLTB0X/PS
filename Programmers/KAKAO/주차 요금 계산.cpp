@@ -1,69 +1,69 @@
-// 2022 KAKAO BLIND RECRUITMENT level 2
 #include <string>
 #include <vector>
 #include <sstream>
 #include <map>
-#include <cmath>
 
 using namespace std;
 
-int get_fee(int tot, vector<int> fees) {
-    int ret = 0;
-    
-    if (tot <= fees[0])
-        ret = fees[1];
-    
-    else {
-        ret = fees[1] + ceil((double)(tot - fees[0])/fees[2]) * fees[3];
+int get_tot_fee(int tot, vector<int> fees) {
+    // 기본 요금 안이면
+    if (tot <= fees[0]) {
+        return fees[1];
     }
     
-    return ret;
+    else {
+        // 소수점이 있는 경우
+        if ((tot - fees[0]) % fees[2]) {
+            return fees[1] + ((int)(tot - fees[0]) / fees[2] + 1) * fees[3];
+        }   
+        else {
+            return fees[1] + ((int)(tot - fees[0]) / fees[2]) * fees[3];
+        }
+    }
 }
 
 vector<int> solution(vector<int> fees, vector<string> records) {
     vector<int> answer;
-    map<string, vector<string>> records_m; 
+    map<string, vector<string>> hash; // 자동정렬을 위해
     
     for (auto record : records) {
         stringstream sstr(record);
         string time, number, state;
         
         sstr >> time >> number >> state;
-        
-        records_m[number].push_back(time);
+        hash[number].push_back(time);
     }
     
-    for (auto& iter : records_m) {
-        // 홀수 면
-        if (iter.second.size() % 2)
-            iter.second.push_back("23:59");
+    for (auto h : hash) {
+        // 입출입이 홀수 이면
+        if (h.second.size() % 2) {
+            h.second.push_back("23:59");
+        }
         
-        int in_h = 0, out_h = 0, in_m = 0, out_m = 0, tot = 0;
-        // 해당 번호 차량 입출입 확인
-        for (int i = 0; i < iter.second.size(); ++i) {
-            string time = iter.second[i];
-            if (i % 2 == 0) {
-                in_h = stoi(time.substr(0, 2));
-                in_m = stoi(time.substr(3, 2));
+        int tot = 0, in_h, in_m, out_h, out_m;
+        for (int i = 0; i < h.second.size(); ++i) {
+            string car = h.second[i];
+            // 0 ,2 ,4 in, 1, 3, 5 out
+            if (i % 2) {
+                out_h = stoi(car.substr(0, 2));
+                out_m = stoi(car.substr(3, 2));
+                
+                if (out_m < in_m) {
+                    tot += ((out_h - in_h - 1) * 60 + (60 + out_m - in_m));
+                }
+                
+                else {
+                    tot += ((out_h - in_h) * 60 + (out_m - in_m));
+                }
             }
             
             else {
-                out_h = stoi(time.substr(0, 2));
-                out_m = stoi(time.substr(3, 2));
-                
-                int h = out_h - in_h;
-                int m = out_m - in_m;
-                
-                if (m < 0) {
-                    m += 60;
-                    h--;
-                }
-                
-                tot += h * 60 + m;
+                in_h = stoi(car.substr(0, 2));
+                in_m = stoi(car.substr(3, 2));
             }
         }
-            
-        answer.push_back(get_fee(tot, fees));
+        
+        answer.push_back(get_tot_fee(tot, fees));
     }
     
     return answer;
