@@ -1,33 +1,29 @@
 // 2529 부등호
 #include <iostream>
+#include <vector>
 #include <string>
 
 using namespace std;
 
-string max_num = "-1";
-string min_num = "9999999999";
+string per;
 int visited[10] = {0, };
 
-int check(int n, string number, char ineq[]) {
-    for (int i = 0; i < number.length() - 1; ++i) {
-        if (ineq[i] == '>' && ((number[i] - '0') < (number[i + 1] - '0')))
-            return 0;
-        
-        if (ineq[i] == '<' && ((number[i] - '0') > (number[i + 1] - '0')))
-            return 0;
+bool check(int n, vector<char>& v) {
+    for (int i = 0; i < per.size() - 1; ++i) {
+        if (v[i] == '<' && (per[i] - '0' > per[i + 1] - '0'))
+            return false;
+        if (v[i] == '>' && (per[i] - '0' < per[i + 1] - '0'))
+            return false;
     }
 
-    return 1;
+    return true;
 }
 
-void DFS(int n, char ineq[], string number, int level) {
+void DFS(int n, vector<char> v, pair<string, string>& answer, int level) {
     if (level == n + 1) {
-        if (check(n, number, ineq)) {
-            if (stoll(number) > stoll(max_num))
-                max_num = number;
-        
-            if (stoll(number) < stoll(min_num))
-                min_num = number;
+        if (check(n, v)) {
+            answer.first = stoll(per) > stoll(answer.first) ? per : answer.first;
+            answer.second = stoll(per) < stoll(answer.second) ? per : answer.second;
         }
         return;
     }
@@ -35,41 +31,47 @@ void DFS(int n, char ineq[], string number, int level) {
     for (int i = 0; i < 10; ++i) {
         if (visited[i] == 1)
             continue;
-        
-        if (number.length() < 2) {
-            number.push_back(i + '0');
+
+        if (per.size() < 2) {
+            per.push_back(i + '0');
             visited[i] = 1;
-            DFS(n, ineq, number, level + 1);
+            DFS(n, v, answer, level + 1);
             visited[i] = 0;
-            number.pop_back();
+            per.pop_back();
         }
 
         else {
-            if (check(n, number, ineq)) {
-                number.push_back(i + '0');
+            if (check(n, v)) {
+                per.push_back(i + '0');
                 visited[i] = 1;
-                DFS(n, ineq, number, level + 1);
+                DFS(n, v, answer, level + 1);
                 visited[i] = 0;
-                number.pop_back();
+                per.pop_back();
             }
         }
     }
-
-    return;
 }
 
-int main(void) {
+pair<string, string> solution(int n, vector<char> v) {
+    pair<string, string> answer;
+
+    answer.first = "-1", answer.second = "9999999999";
+    DFS(n, v, answer, 0);
+    return answer;
+}
+
+int main(void) 
+{
     int n;
-    char ineq[10];
+    vector<char> v;
 
     cin >> n;
+    v = vector<char> (n);
     for (int i = 0; i < n; ++i) {
-        cin >> ineq[i];
+        cin >> v[i];
     }
 
-    DFS(n, ineq, "", 0);
-
-    cout << max_num << '\n';
-    cout << min_num;
+    pair<string, string> ret = solution(n, v);
+    cout << ret.first << '\n' << ret.second;
     return 0;
 }
