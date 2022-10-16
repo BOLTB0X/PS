@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int solution(int n, vector<vector<int>>& company) {
+int solution(int n, vector<vector<int>> company) {
     int answer = 0;
     int max_score;
 
