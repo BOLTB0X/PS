@@ -18,24 +18,16 @@ void DFS(int n, vector<int> arr, int plus, int minus, int multi, int div, LL tot
 
     else {
         if (plus > 0)
-        {
             DFS(n, arr, plus - 1, minus, multi, div, tot + arr[level], level + 1, answer);
-        }
 
         if (minus > 0)
-        {
             DFS(n, arr, plus, minus - 1, multi, div, tot - arr[level], level + 1, answer);
-        }
 
         if (multi > 0)
-        {
             DFS(n, arr, plus, minus, multi - 1, div, tot * arr[level], level + 1, answer);
-        }
 
         if (div > 0)
-        {
             DFS(n, arr, plus, minus, multi, div - 1, (LL)tot / arr[level], level + 1, answer);
-        }
     }
 }
 
