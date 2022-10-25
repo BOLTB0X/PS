@@ -4,37 +4,41 @@
 
 using namespace std;
 
-int main(void)
-{
-    string input;
-    int max_cnt = 0;
-    int alp[26] = {0, };
+char solution(string str) {
     char answer;
+    int alp[26] = {0, };
+    int size = str.length(), cnt = 0;
 
-    cin >> input;
+    for (int i = 0; i < size; ++i) {
+        if (str[i] >= 'a') {
+            str[i] -= 32;
+        }
 
-    for (int i = 0; i < input.length(); ++i) {
-        if (input[i] >= 'a')
-            alp[input[i] - 'a']++;
-        else
-            alp[input[i] - 'A']++;
+        alp[str[i] - 'A']++;
     }
 
     for (int i = 0; i < 26; ++i) {
-        if (alp[i] > max_cnt) {
-            max_cnt = alp[i];
+        if (cnt < alp[i]) {
+            cnt = alp[i];
             answer = i + 'A';
         }
 
-        else if (max_cnt == alp[i])
-            answer = -1;
+        else if (cnt == alp[i]) {
+            answer = '?';
+        }
     }
 
-    if (answer == -1)
-        cout << "?";
-    else {
-        cout << answer;
-    }
+    return answer;
+}
 
-    return 0;
+int main(void)
+{
+   string str;
+
+   cin >> str;
+
+   char ret = solution(str);
+   cout << ret;
+
+   return 0;
 }
