@@ -29,6 +29,7 @@ vector<int> solution(vector<int> answers) {
             max_score = score[i];
     }
     
+    // 최고점 찾기
     for (int i = 0; i < 3; ++i) {
         if (max_score == score[i])
             answer.push_back(i + 1);
