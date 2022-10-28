@@ -27,6 +27,7 @@ int main(void)
         scanf("%d %d", &a, &b);
         adj[a][b] = adj[b][a] = 1;    
     }
+    
     visited[1] = 1;
     DFS(n, m, 1);
     printf("%d", cnt);
