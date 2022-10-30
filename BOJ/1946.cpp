@@ -7,10 +7,9 @@ using namespace std;
 
 int solution(int n, vector<vector<int>> company) {
     int answer = 0;
-    int max_score;
 
     sort(company.begin(), company.end());
-    max_score = company[0][1];
+    int max_score = company[0][1];
 
     for (auto c: company) {
         if (max_score >= c[1]) {
@@ -23,6 +22,10 @@ int solution(int n, vector<vector<int>> company) {
 }
 
 int main(void) {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
     int T, n;
     vector<vector<int>> company;
     cin >> T;
