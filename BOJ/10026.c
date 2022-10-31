@@ -25,30 +25,23 @@ void DFS(int n, int y, int x) {
     return;
 }
 
-int main(void) 
-{
-    int n, ans1 = 0, ans2 = 0;
+void solution(int n) {
+    int answer1 = 0, answer2 = 0;
 
-    scanf("%d", &n);
-    for (int i = 0; i < n; ++i) {
-        scanf("%s", board[i]);
-    }
-
-    // 초기화
+     // 초기화
     memset(visited, 0, sizeof(visited)); 
 
-    // 색맹 X
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (visited[i][j] == 0) {
                 visited[i][j] = 1;
                 DFS(n, i, j);
-                ans1++;
+                answer1++;
             }
         }
     }
 
-    memset(visited, 0, sizeof(visited));
+     memset(visited, 0, sizeof(visited));
 
     // 색맹 O
     for (int i = 0; i < n; ++i) {
@@ -62,11 +55,23 @@ int main(void)
             if (visited[i][j] == 0) {
                 visited[i][j] = 1;
                 DFS(n, i, j);
-                ans2++;
+                answer2++;
             }
         }
     }
 
-    printf("%d %d", ans1, ans2);
+    printf("%d %d", answer1, answer2);
+    return;
+}
+
+int main(void) {
+    int n;
+
+    scanf("%d", &n);
+    for (int i = 0; i < n; ++i) {
+        scanf("%s", board[i]);
+    }
+
+    solution(n);
     return 0;
 }
