@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int ans_idx = 0;
+int answer[26 * 26] = {0, };
 int cnt = 0;
 int board[26][26];
 int visited[26][26] = {0, };
@@ -35,18 +37,7 @@ void DFS(int n, int y, int x) {
     return;
 }
 
-int main(void) 
-{   
-    int n, ans_idx = 0;
-    int answer[26 * 26] = {0, };
-
-    scanf("%d", &n);
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            scanf("%1d", &board[i][j]);   
-        }
-    }
-
+void solution(int n) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (visited[i][j] == 0 && board[i][j] == 1) {
@@ -58,6 +49,22 @@ int main(void)
     }
 
     qsort(answer, ans_idx, sizeof(int), compare);
+
+    return;
+}
+
+int main(void) {   
+    int n;
+
+    scanf("%d", &n);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            scanf("%1d", &board[i][j]);   
+        }
+    }
+
+    solution(n);
+
     printf("%d\n", ans_idx);
     for (int i = 0; i < ans_idx; ++i) {
         printf("%d ", answer[i]);
