@@ -40,8 +40,7 @@ int BFS(int n, int k) {
     
 }
 
-int main(void) 
-{
+int main(void) {
     int n, k;
 
     scanf("%d %d", &n, &k);
