@@ -13,6 +13,7 @@ int fr = 0, re = 0;
 int board[MAX][MAX];
 int visited[MAX][MAX] = {0, };
 
+// 상하좌우
 const int dy[4] = {-1, 1, 0, 0};
 const int dx[4] = {0, 0, -1, 1};
 
@@ -41,9 +42,17 @@ void BFS(int n, int m, int y, int x) {
     return;
 }
 
-int main(void)
-{
-    int n, m, ans = 0;
+int solution(int n, int m) {
+    int answer = 0;
+
+    BFS(n, m, 0, 0);
+    answer = visited[n - 1][m - 1];
+
+    return answer;
+}
+
+int main(void) {
+    int n, m;
 
     scanf("%d %d", &n, &m);
     for (int i = 0; i < n; ++i) {
@@ -52,8 +61,7 @@ int main(void)
         }
     }
 
-    BFS(n, m, 0, 0);
-    ans = visited[n - 1][m - 1];
-    printf("%d", ans);
+    int ret = solution(n, m);
+    printf("%d", ret);
     return 0;
 }
