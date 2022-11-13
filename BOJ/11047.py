@@ -1,4 +1,7 @@
 # 11047 동전 0
+from sys import stdin
+input = stdin.readline
+
 n, k = map(int,input().split())
 coins = [int(input()) for _ in range(n)]
 answer = 0
