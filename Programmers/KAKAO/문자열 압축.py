@@ -1,29 +1,28 @@
 # 2020 KAKAO BLIND RECURITMENT level 2
 def solution(s):
+    answer = len(s) # 최솟값을 찾아야 하므로
     size = len(s)
-    answer = size
-        
-    # 몇개씩 압축할지 결정
-    for i in range(1, size // 2 + 1):
+    
+    # 압축이 주 목적
+    # 반만 검사
+    for i in range(1, size + 1):
+        # 몇개를 자를지 결정
         compress = ""
-        cmp = s[:i]
         cnt = 1
+        cmp = s[:i]
         
-        # 비교할 자른 문자열의 길이,간격으로
-        # for문의 범위 끝을 간격만큼 넓혀둠
         for j in range(i, size + i, i):
-            if cmp == s[j:j + i]:
+            if cmp == s[j:i + j]:
                 cnt += 1
             else:
-                if cnt == 1:
-                    compress += cmp
-                else:
-                    compress += (str(cnt) + cmp)
+                if cnt > 1:
+                    compress += str(cnt)
+                    cnt = 1
                 
-                # 압축이 끝났으니 변경
-                cmp = s[j:j+i]
-                cnt = 1
+                compress += cmp
+                cmp = s[j:i + j]
         
+        # 비교
         answer = min(answer, len(compress))
-            
+    
     return answer
