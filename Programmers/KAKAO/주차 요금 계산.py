@@ -3,34 +3,40 @@ import math
 
 def solution(fees, records):
     answer = []
-    records_dic = {} # 테이블 표  딕셔너리 변환
-    accum_cars = {} # 요금 환산
+    in_records_cars = dict() # 들어오는 자동차 
+    tot_minute = dict()  # 자동차의 총 주차시간
     
     for record in records:
-        time, number, state = record.split()
+        time, car, state = record.split() # 공백으로 분리
         h, m = time.split(":")
+        minute = int(h) * 60 + int(m) # 분으로 환산
         
-        # 분으로 환산
-        minute = int(h) * 60 + int(m)
         if state == "IN":
-            records_dic[number] = minute
+            in_records_cars[car] = minute;
+            
         else:
-            # accum_car 딕셔너리가 존재할 경우
+            # tot_minute 딕셔너리가 존재할 경우
             try:
-                accum_cars[number] += minute - records_dic[number]
+                tot_minute[car] += minute - in_records_cars[car]
+            # 추가 되는 경우
             except:
-                accum_cars[number] = minute - records_dic[number]
-            # 기록 딕셔너리에 key 삭제
-            del records_dic[number]
+                tot_minute[car] = minute - in_records_cars[car]
+            del in_records_cars[car]
     
-    # 남은 차량
-    for car, tot_minue in records_dic.items():
+    # 0000에 나갔을 경우가 존재
+    for car, minute in in_records_cars.items():
+        # tot_minute 딕셔너리가 존재할 경우
         try:
-            accum_cars[car] += (23 * 60  + 59 - tot_minue)
+            tot_minute[car] += 23 * 60 + 59 - minute
+        # 추가 되는 경우
         except:
-            accum_cars[car] = (23 * 60  + 59 - tot_minue)
+            tot_minute[car] = 23 * 60 + 59 - minute
     
-    # 요금 계산
-    for car, minute in sorted(accum_cars.items()):
-        answer.append(fees[1] + math.ceil(max(0, (minute - fees[0])) / fees[2]) * fees[3])
+    # 정렬하면서 총 요금 계산
+    for car, minute in sorted(tot_minute.items()):
+        # 나머지가 존재하면 +1
+        # 음수인 경우는 그냥 기본 요금
+        fee = fees[1] + math.ceil(max(0, (minute - fees[0])) / fees[2]) * fees[3]
+        answer.append(fee)
+        
     return answer
