@@ -11,7 +11,7 @@ def solution(number, limit, power):
                 if ( (i**2) != num) : 
                     cnt += 1
         divisors.append(cnt);
-        
+
     for d in divisors:
         if d > limit:
             answer += power
