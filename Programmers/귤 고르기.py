@@ -12,4 +12,20 @@ def solution(k, tangerine):
             break;
         k -= value # 선택된 해당 종류의 귤 갯수만큼 차감
         answer += 1 # 카운트
+        
+    # 비슷하지만 다른 풀이
+    answer = 0
+    fruit_occ = [0 for _ in range(max(tangerine))]
+    
+    # 종류 귤 갯수 카운팅
+    for t in tangerine:
+        fruit_occ[t - 1] += 1
+    
+    fruit_occ.sort(reverse = True) # 내림 차순
+    
+    # answer를 idx로 생각하여
+    # idx가 증가될때가 귤 종류를 선택한거로 가정하여 진행
+    while k > 0:
+        k -= fruit_occ[answer]
+        answer += 1
     return answer
