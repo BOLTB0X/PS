@@ -1,4 +1,5 @@
 #level 2
+
 # 콜라츠 추측
 def get_woobak_seq(k):
     number = k
