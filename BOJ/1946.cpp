@@ -7,7 +7,7 @@ using namespace std;
 
 int solution(int n, vector<vector<int>> company) {
     int answer = 0;
-
+    
     sort(company.begin(), company.end());
     int max_score = company[0][1];
 
