@@ -42,4 +42,5 @@ for boa in board:
             print(-1)
             exit()
     answer = max(answer, max(boa))
+    
 print(answer - 1)
